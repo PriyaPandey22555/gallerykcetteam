@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Images - MyGallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #1c1c1e;
+            color: #f4f4f4;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff3366;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .gallery .image-container {
+            width: 100%;
+            height: 300px;  /* Fixed height for image container */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* Ensures the image fills the box without stretching */
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 51, 102, 0.6);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            background-color: transparent;
+            border: 2px solid #ff3366;
+            color: #ff3366;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #ff3366;
+            color: white;
+        }
+
+        .no-images {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gallery Images</h1>
+
+    <div class="gallery">
+        {% if uploaded_images %}
+            {% for image in uploaded_images %}
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='uploads/' + image['filename']) }}" alt="Gallery Image">
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-images">No images uploaded yet.</p>
+        {% endif %}
+    </div>
+
+    <a href="/profile/{{ user_id }}" class="back-link">← Back to Profile</a>
+</body>
+</html>

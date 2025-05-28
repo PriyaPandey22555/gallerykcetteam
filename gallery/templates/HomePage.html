@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyGallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500&display=swap');
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes rain {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .rain img {
+            position: absolute;
+            width: 80px;
+            opacity: 0.6;
+            animation: rain 20s linear infinite;
+        }
+        .brand {
+            font-size: 3em;
+            font-family: 'Lobster', cursive;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand i {
+            font-size: 50px;
+            color: #ff0000;
+            animation: bounce 3s infinite alternate;
+        }
+        .welcome {
+            font-size: 3em;
+            font-weight: 500;
+            color: #ffffff;
+            font-family: 'Lobster', cursive;
+            animation: fadeIn 1.5s ease-in-out;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            margin-top: 30px;
+        }
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .icon {
+            transition: transform 0.3s;
+            font-size: 60px;
+            color: #ff0000;
+            animation: bounce 1.5s infinite;
+        }
+        .icon:hover {
+            transform: scale(1.4);
+            color: #ff4081;
+        }
+        .label {
+            margin-top: 12px;
+            font-size: 1.5em;
+            font-weight: 500;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="rain">
+        <script>
+            for (let i = 0; i < 10; i++) {
+                let img = document.createElement("img");
+                img.src = "/static/uploads/gallery-image.png";  // Correctly pointing to the static folder
+                img.style.left = Math.random() * 100 + "vw";  // Randomize horizontal position
+                img.style.animationDuration = Math.random() * 15 + 10 + "s";  // Randomize animation duration
+                document.querySelector(".rain").appendChild(img);
+            }
+        </script>
+    </div>
+    <div class="brand">
+        <i class="fas fa-camera-retro"></i>
+        <span>MyGallery</span>
+    </div>
+    <div class="welcome">Welcome to My Gallery</div>
+    <div class="container">
+        <div class="icon-container" onclick="location.href='/register_page'">
+            <i class="fas fa-user-plus icon"></i>
+            <div class="label">Registration</div>
+        </div>
+        <div class="icon-container" onclick="location.href='/login'">
+            <i class="fas fa-sign-in-alt icon"></i>
+            <div class="label">Login</div>
+        </div>
+    </div>
+</body>
+</html>

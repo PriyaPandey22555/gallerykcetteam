@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile - MyGallery</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+  <style>
+    /* Add your existing styles here */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: black;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .brand {
+      font-size: 4em;
+      font-family: 'Lobster', cursive;
+      color: #ff0033;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-shadow: 0px 0px 20px white;
+    }
+
+    .brand i {
+      font-size: 80px;
+      color: #ff0033;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .upload-form, .gallery-upload-form {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .upload-form i,
+    .gallery-upload-form i {
+      font-size: 2.5em;
+      color: #ff0033;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .upload-form i:hover,
+    .gallery-upload-form i:hover {
+      color: #ff66a3;
+    }
+
+    .upload-form input[type="file"],
+    .gallery-upload-form input[type="file"] {
+      display: none;
+    }
+
+    .upload-form button,
+    .gallery-upload-form button {
+      padding: 10px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      background: #ff0033;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .upload-form button:hover,
+    .gallery-upload-form button:hover {
+      background: #ff66b2;
+    }
+
+    .file-name {
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .button-container button {
+      padding: 12px 20px;
+      font-size: 1.1em;
+      background: #ff0033;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button-container button:hover {
+      background: #ff66a3;
+    }
+
+    .image-count {
+      font-size: 1.2em;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand">
+    <i class="fas fa-camera-retro"></i>
+    <span>MyGallery</span>
+  </div>
+
+  {% if user['profile_image'] %}
+    <img src="{{ url_for('static', filename='uploads/' + user['profile_image']) }}" alt="Profile Picture" class="profile-pic">
+  {% else %}
+    <p>No profile image uploaded.</p>
+  {% endif %}
+
+  <!-- Upload Profile Image -->
+  <form class="upload-form" action="{{ url_for('upload_profile_image', user_id=user['id']) }}" method="POST" enctype="multipart/form-data">
+    <label for="profile-image"><i class="fas fa-camera"></i></label>
+    <input type="file" id="profile-image" name="profile-image" accept="image/*" required>
+    <button type="submit">OK</button>
+  </form>
+
+  <div class="profile-name">{{ user['name'] }}</div>
+
+  <!-- Upload Gallery Image -->
+  <form class="gallery-upload-form" action="{{ url_for('upload_image', user_id=user['id']) }}" method="POST" enctype="multipart/form-data">
+    <label for="gallery-image"><i class="fas fa-image"></i></label>
+    <input type="file" id="gallery-image" name="gallery-image" accept="image/*" required onchange="showFileName(this)">
+    <span class="file-name" id="file-name">No file chosen</span>
+    <button type="submit">Upload</button>
+  </form>
+
+  <!-- Buttons -->
+  <div class="button-container">
+    <button onclick="window.location.href='/show_images/{{ user.id }}'">Show Images</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="image-count">Total Uploaded Images: {{ image_count }}</div>
+
+  <script>
+    function logout() {
+      window.location.href = "/";
+    }
+
+    function showFileName(input) {
+      const fileName = input.files[0]?.name || "No file chosen";
+      document.getElementById("file-name").textContent = fileName;
+    }
+  </script>
+
+</body>
+</html>

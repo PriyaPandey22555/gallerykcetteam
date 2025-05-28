@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .brand {
+            font-size: 5em;
+            font-family: 'Lobster', cursive;
+            font-weight: bold;
+            color: #ff0033;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0px 0px 20px white;
+        }
+        .brand i {
+            font-size: 100px;
+            color: #ff0033;
+            text-shadow: 0px 0px 20px white;
+        }
+
+        .login-box {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #000;
+            width: 350px;
+            color: white;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .login-box input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff0033;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 0 5px #ff0033;
+        }
+
+        .login-box input[type="submit"]:hover {
+            background-color: #e0002b;
+        }
+
+        .login-box label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <i class="fas fa-camera-retro"></i>
+            <span>MyGallery</span>
+        </div>
+        <div class="login-box">
+            <form method="POST" action="/login">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
